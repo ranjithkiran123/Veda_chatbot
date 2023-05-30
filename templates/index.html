@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 12px;
+            line-height: 1.3;
+        }
+
+        .chat-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .chat {
+          background-image: url('https://drive.google.com/uc?id=1kjUybsnbZmFGVpDlcawxSQ1m7IxA3F03');
+          background-size: 400px 700px ;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            width: 400px;
+            opacity: 70%;
+        }
+
+        .chat-title {
+            background-color: #5a0656;
+            color: #fff;
+            padding: 16px;
+        }
+
+        .chat-title h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .chat-title h2 {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .avatar {
+            display: flex;
+            justify-content: center;
+        }
+
+        .online-icon {
+            color: green;
+            position: relative;
+            top: -22px;
+            left: 50px;
+            transform: translateX(-50%);
+        }
+
+        .avatar img {
+            width: 40px;
+            height: 40px;
+        }
+
+        .chatbox {
+            height: 400px;
+            overflow-y: auto;
+            padding: 16px;
+        }
+
+        .message-container {
+            display: flex;
+            justify-content: flex-start;
+            border-radius: 8px;
+        }
+
+        .message-container.user-message {
+            justify-content: flex-end;
+        }
+
+        .message-container.bot-message {
+            justify-content: flex-start;
+        }
+
+        .message-container span {
+            background-color: #eaeef5;
+            border-radius: 20px;
+            padding: 10px 16px;
+            display: inline-block;
+            max-width: 70%;
+            word-wrap: break-word;
+            box-shadow: 0 6px 6px rgba(0, 0, 0, 0.15);
+            font-size: 15px;
+            font-family: sans-serif;
+            margin: 5px;
+        }
+
+        .user-msg {
+            width: 80%;
+            padding: 8px;
+            border: 1px solid black;
+            border-radius: 4px;
+        }
+
+        .menu-icon {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 9999;
+    color: rgb(250, 242, 242); /* Replace "red" with your desired color */
+}
+
+
+        
+
+#menu-toggle {
+            display: none;
+}
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 200px;
+            height: 50vh;
+            
+            padding: 20px;
+            
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        #menu-toggle:checked~.navbar {
+            transform: translateX(0);
+        }
+
+        .navbar ul {
+            list-style-type: none;
+            padding: 30px;
+            margin: 0;
+        }
+
+        .navbar li {
+            margin-bottom: 20px;
+            font-display: black;
+        }
+
+        .navbar a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: #f7efef;
+            font-weight: bold;
+        }
+
+        .navbar a:hover {
+            background-color: #ccc;
+        }
+
+        .user-button {
+            width: 18%;
+            padding: 8px;
+            border: none;
+            border-radius: 4px;
+            background-color: #044f48;
+            color: #fff;
+        }
+
+        .bar-title {
+            max-width: 100%;
+        }
+
+        .bar-logo {
+            max-width: 20%;
+        }
+
+        .bar-logo {
+            max-width: 20%;
+            float: left;
+        }
+
+        img {
+            border-radius: 100%;
+        }
+
+        .lan-form {
+            color: white;
+            margin: 20px 0 0 0;
+        }
+
+        select#dropdown {
+            width: 80%;
+        }
+
+        select {
+            padding: 8px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .form-btn {
+            width: 18%;
+            padding: 8px;
+            border: 1px solid white;
+            border-radius: 4px;
+            background-color: #044f48;
+            color: #fff;
+        }
+
+        /* Video Background */
+        .video-background {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -100;
+            overflow: hidden;
+        }
+
+        .video-background video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+    <div class="video-background">
+        <video autoplay loop muted>
+            <source src="https://drive.google.com/uc?id=1u28kn32AlKUyKMO2UhZvak_C3BWyy6Tg" type="video/mp4">
+        </video>
+    </div>
+
+    <div class="chat-container">
+      <div class="chat">
+        <div class="chat-title">
+            <div class="bar-logo">
+            <figure class="avatar">
+                <img src="https://drive.google.com/uc?id=1LuWYs9GqEAWSkvn5V1bapJzK5bKh5XvO" />
+            </figure>
+            <span class="online-icon"><i class="fas fa-circle"></i></span>
+            </div>
+            <div class="bar-title">
+            <h1>Chat Veda</h1>
+            <h2>Government Services at your Fingertips</h2>
+            </div>
+            <div class="lan-form">
+            <form action="/process_dropdown" method="POST">
+                <label for="dropdown">Select Your Language:</label>
+                <select id="dropdown" name="dropdown">
+                    <option value="english">English</option>
+                    <option value="hindi">Hindi</option>
+                    <option value="tamil">Tamil</option>
+                    <option value="telugu">Telugu</option>
+                    <option value="malayalam">Malayalam</option>
+                    <option value="kannada">Kannada</option>
+                    </select>
+                    
+                    <button class="user-button" id="buttonInput" type="submit">
+                      <i class="fas fa-check"></i>
+                    </form>
+            </div>
+        </div>
+
+        <div class="chatbox" id="chatbox"></div>
+        <div id="userInput" class="message-container">
+          <input class="user-msg" id="textInput" type="text" name="msg" placeholder="Message" />
+          <button class="user-button" id="sendButton" type="button">
+            <i class="fas fa-paper-plane"></i>
+          </button>
+        </div>
+        
+        </div>
+      </div>
+    </div>
+    
+  
+    <script>
+      function getBotResponse() {
+        var rawText = $("#textInput").val();
+        var userHtml =
+          '<div class="message-container user-message"><span>' + rawText + "</span></div>";
+        $("#textInput").val("");
+        $("#chatbox").append(userHtml);
+        document.getElementById("userInput").scrollIntoView({ block: "start", behavior: "smooth" });
+        $.get("/get", { msg: rawText })
+          .done(function (data) {
+            var botHtml = '<div class="message-container bot-message"><span>' + data + "</span></div>";
+            $("#chatbox").append(botHtml);
+            document.getElementById("userInput").scrollIntoView({ block: "start", behavior: "smooth" });
+          });
+      }
+  
+      $("#textInput").keypress(function (e) {
+        if (e.which == 13) {
+          getBotResponse();
+        }
+      });
+  
+      $("#sendButton").click(function () {
+        getBotResponse();
+      });
+    </script>
+
+    <input type="checkbox" id="menu-toggle">
+    <label for="menu-toggle" class="menu-icon">&#9776;</label>
+    <div class="navbar">
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </div>
+
+</body>
+
+</html>
