@@ -1,10 +1,10 @@
 # Veda-chatbot 
           Government Services at your Fingertips
 short video(3-mins):
-https://youtu.be/Ueq-mu_rw1o
+https://youtu.be/-ey0MMdFj_Y
 
-long video(9-mins):
-https://youtu.be/EDlNESpWXL4
+long video(4-mins):
+https://youtu.be/E8Y1lg8UQ-s
 
 # Veda-chatbot
 Government Services Chatbot
